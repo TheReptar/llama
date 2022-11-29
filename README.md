@@ -69,9 +69,10 @@ end
 
 ```powershell
 function ll() {
-  cd "$(llama $args)"
+  cd $(llama $args | Out-String -Stream | Select-Object -Last 1)
 }
 ```
+See #30 for more details.
 
 </td>
 </tr>
