@@ -10,8 +10,9 @@ import (
 )
 
 type LlamaConfiguration struct {
-	Bindings       []BindingConfiguration
-	EditorDisabled bool
+	Bindings              []BindingConfiguration
+	EditorDisabled        bool
+	SearchTimeoutDisabled bool
 }
 
 type BindingConfiguration struct {
@@ -75,6 +76,7 @@ func processConfig() {
 	}
 
 	configEditorDisabled = llamaConfig.EditorDisabled
+	configSearchTimeoutDisabled = llamaConfig.SearchTimeoutDisabled
 }
 
 func getConfigPath() string {

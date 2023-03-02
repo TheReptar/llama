@@ -61,7 +61,8 @@ var (
 
 // Variables set via configuration.
 var (
-	configEditorDisabled = false
+	configEditorDisabled        = false
+	configSearchTimeoutDisabled = false
 )
 
 func main() {
@@ -203,6 +204,10 @@ func (m *model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				m.updateOffset()
 				m.saveCursorPosition()
 				m.preview()
+				if configSearchTimeoutDisabled {
+					// Keep search mode active until manually deactivated or dir change
+					return m, nil
+				}
 				// Save search id to clear only current search after delay.
 				// User may have already started typing next search.
 				searchId := m.searchId

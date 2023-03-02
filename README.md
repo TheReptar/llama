@@ -209,7 +209,8 @@ Note that the `action` property must match one of the following actions, and tha
 Some application behaviors may be [configured via json](#configuration-schema). For example:
 ```json5
 {
-  "editorDisabled": true  // Prevent attempts to open/edit files
+  "editorDisabled": true,        // Prevent attempts to open/edit files
+  "searchTimeoutDisabled": true  // Prevent 2-second timeout of fuzzy search
 }
 ```
 
@@ -219,12 +220,13 @@ Various settings may be configured via json. By default, llama will search for a
 The schema is presented below:
 ```json5
 {
-  "editorDisabled": boolean,  // default: false
+  "editorDisabled": boolean,         // default: false
+  "searchTimeoutDisabled": boolean,  // default: false
   "bindings": [
     {
       "action": string,
       "keys": string[],
-      "disabled": boolean,    // default: false
+      "disabled": boolean,           // default: false
       "help": {
         "key": string,
         "desc": string
