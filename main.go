@@ -59,6 +59,11 @@ var (
 	keyUndo      = key.NewBinding(key.WithKeys("u"))
 )
 
+// Variables set via configuration.
+var (
+	configEditorDisabled = false
+)
+
 func main() {
 	// Load configuration from ~/.config/llama/config.json or LLAMA_CONFIG
 	processConfig()
@@ -80,6 +85,11 @@ func main() {
 
 		if os.Args[i] == "--icons" {
 			showIcons = true
+			continue
+		}
+
+		if os.Args[i] == "--no-editor" {
+			configEditorDisabled = true
 			continue
 		}
 
@@ -234,6 +244,9 @@ func (m *model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 					m.r = 0
 					m.offset = 0
 				}
+				m.list()
+			} else if configEditorDisabled {
+				// Don't open file if user has opted out of editing.
 				m.list()
 			} else {
 				// Open file. This will block until complete.

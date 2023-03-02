@@ -10,7 +10,8 @@ import (
 )
 
 type LlamaConfiguration struct {
-	Bindings []BindingConfiguration
+	Bindings       []BindingConfiguration
+	EditorDisabled bool
 }
 
 type BindingConfiguration struct {
@@ -72,6 +73,8 @@ func processConfig() {
 			binding.SetEnabled(!bindingConfig.Disabled)
 		}
 	}
+
+	configEditorDisabled = llamaConfig.EditorDisabled
 }
 
 func getConfigPath() string {
