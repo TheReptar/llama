@@ -21,6 +21,8 @@ the llama. That's it. As simple and dumb as a llama.
 - [Configuration](#configuration)
   - [Editor](#editor)
   - [Key Bindings](#key-bindings)
+  - [Application Behaviors](#application-behaviors)
+  - [Configuration Schema](#configuration-schema)
 - [License](#license)
 
 ## Install
@@ -157,21 +159,17 @@ $env:EDITOR = "vim"
 </table>
 
 ### Key Bindings
-Key bindings can be configured via json. By default, llama will search for a configuration file at `~\.config\llama\config.json` where `~` is the user's home directory, but this may be overridden using the `LLAMA_CONFIG` environment variable.
-
-For example:
+Key bindings may be [configured via json](#configuration-schema). For example:
 ```json5
 {
   "bindings": [
-    // {
-    //   action   : string
-    //   keys     : string[]
-    //   disabled : boolean
-    //   help     : { key : string, desc: string }
-    // }
     {
       "action": "keyQuit",
       "keys": [ "q", "tab" ],  // Bind keyQuit to activate with 'q' or 'tab' instead of `esc`
+    },
+    {
+      "action": "keyBack",
+      "keys": [ "shift+tab" ]  // Use a key combination to navigate backwards
     },
     {
       "action": "keyDelete",
@@ -206,6 +204,35 @@ Note that the `action` property must match one of the following actions, and tha
 | keyPreview   | space                            |
 | keyDelete    | d                                |
 | keyUndo      | u                                |
+
+### Application Behaviors
+Some application behaviors may be [configured via json](#configuration-schema). For example:
+```json5
+{
+  "editorDisabled": true  // Prevent attempts to open/edit files
+}
+```
+
+### Configuration Schema
+Various settings may be configured via json. By default, llama will search for a configuration file at `~\.config\llama\config.json` where `~` is the user's home directory, but this may be overridden using the `LLAMA_CONFIG` environment variable.
+
+The schema is presented below:
+```json5
+{
+  "editorDisabled": boolean,  // default: false
+  "bindings": [
+    {
+      "action": string,
+      "keys": string[],
+      "disabled": boolean,    // default: false
+      "help": {
+        "key": string,
+        "desc": string
+      }
+    }
+  ]
+}
+```
 
 ## License
 
