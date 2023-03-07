@@ -220,13 +220,14 @@ Various settings may be configured via json. By default, llama will search for a
 The schema is presented below:
 ```json5
 {
-  "editorDisabled": boolean,         // default: false
-  "searchTimeoutDisabled": boolean,  // default: false
+  "editorDisabled": boolean,           // default: false
+  "searchTimeoutDisabled": boolean,    // default: false
+  "persistentSearchEnabled": boolean,  // default: false
   "bindings": [
     {
       "action": string,
       "keys": string[],
-      "disabled": boolean,           // default: false
+      "disabled": boolean,             // default: false
       "help": {
         "key": string,
         "desc": string

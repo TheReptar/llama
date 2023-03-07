@@ -61,8 +61,9 @@ var (
 
 // Variables set via configuration.
 var (
-	configEditorDisabled        = false
-	configSearchTimeoutDisabled = false
+	configEditorDisabled          = false
+	configSearchTimeoutDisabled   = false
+	configPersistentSearchEnabled = false
 )
 
 func main() {
@@ -232,7 +233,11 @@ func (m *model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			return m, tea.Quit
 
 		case key.Matches(msg, keyOpen):
-			m.searchMode = false
+			if configPersistentSearchEnabled {
+				m.search = "" // Clear current search string
+			} else {
+				m.searchMode = false
+			}
 			filePath, ok := m.filePath()
 			if !ok {
 				return m, nil
@@ -259,7 +264,11 @@ func (m *model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 			}
 
 		case key.Matches(msg, keyBack):
-			m.searchMode = false
+			if configPersistentSearchEnabled {
+				m.search = "" // Clear current search string
+			} else {
+				m.searchMode = false
+			}
 			m.prevName = filepath.Base(m.path)
 			m.path = filepath.Join(m.path, "..")
 			if p, ok := m.positions[m.path]; ok {
