@@ -35,28 +35,29 @@ var (
 )
 
 var (
-	keyForceQuit = key.NewBinding(key.WithKeys("ctrl+c"))
-	keyQuit      = key.NewBinding(key.WithKeys("esc"))
-	keyOpen      = key.NewBinding(key.WithKeys("enter"))
-	keyBack      = key.NewBinding(key.WithKeys("backspace"))
-	keyUp        = key.NewBinding(key.WithKeys("up"))
-	keyDown      = key.NewBinding(key.WithKeys("down"))
-	keyLeft      = key.NewBinding(key.WithKeys("left"))
-	keyRight     = key.NewBinding(key.WithKeys("right"))
-	keyTop       = key.NewBinding(key.WithKeys("shift+up", "pgup", "g"))
-	keyBottom    = key.NewBinding(key.WithKeys("shift+down", "pgdown", "G"))
-	keyLeftmost  = key.NewBinding(key.WithKeys("shift+left"))
-	keyRightmost = key.NewBinding(key.WithKeys("shift+right"))
-	keyHome      = key.NewBinding(key.WithKeys("home"))
-	keyEnd       = key.NewBinding(key.WithKeys("end"))
-	keyVimUp     = key.NewBinding(key.WithKeys("k"))
-	keyVimDown   = key.NewBinding(key.WithKeys("j"))
-	keyVimLeft   = key.NewBinding(key.WithKeys("h"))
-	keyVimRight  = key.NewBinding(key.WithKeys("l"))
-	keySearch    = key.NewBinding(key.WithKeys("/"))
-	keyPreview   = key.NewBinding(key.WithKeys(" "))
-	keyDelete    = key.NewBinding(key.WithKeys("d"))
-	keyUndo      = key.NewBinding(key.WithKeys("u"))
+	keyForceQuit   = key.NewBinding(key.WithKeys("ctrl+c"))
+	keyQuit        = key.NewBinding(key.WithKeys("esc"))
+	keyOpen        = key.NewBinding(key.WithKeys("enter"))
+	keyBack        = key.NewBinding(key.WithKeys("backspace"))
+	keyUp          = key.NewBinding(key.WithKeys("up"))
+	keyDown        = key.NewBinding(key.WithKeys("down"))
+	keyLeft        = key.NewBinding(key.WithKeys("left"))
+	keyRight       = key.NewBinding(key.WithKeys("right"))
+	keyTop         = key.NewBinding(key.WithKeys("shift+up", "pgup", "g"))
+	keyBottom      = key.NewBinding(key.WithKeys("shift+down", "pgdown", "G"))
+	keyLeftmost    = key.NewBinding(key.WithKeys("shift+left"))
+	keyRightmost   = key.NewBinding(key.WithKeys("shift+right"))
+	keyHome        = key.NewBinding(key.WithKeys("home"))
+	keyEnd         = key.NewBinding(key.WithKeys("end"))
+	keyVimUp       = key.NewBinding(key.WithKeys("k"))
+	keyVimDown     = key.NewBinding(key.WithKeys("j"))
+	keyVimLeft     = key.NewBinding(key.WithKeys("h"))
+	keyVimRight    = key.NewBinding(key.WithKeys("l"))
+	keySearch      = key.NewBinding(key.WithKeys("/"))
+	keyPreview     = key.NewBinding(key.WithKeys(" "))
+	keyDelete      = key.NewBinding(key.WithKeys("d"))
+	keyUndo        = key.NewBinding(key.WithKeys("u"))
+	keyClearSearch = key.NewBinding(key.WithKeys("ctrl+w"))
 )
 
 // Variables set via configuration.
@@ -383,6 +384,11 @@ func (m *model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 				m.list()
 				m.previewContent = ""
 				return m, nil
+			}
+
+		case key.Matches(msg, keyClearSearch):
+			if m.searchMode {
+				m.search = ""
 			}
 
 		} // End of switch statement for key presses.
