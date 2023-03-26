@@ -65,6 +65,7 @@ var (
 	configEditorDisabled          = false
 	configSearchTimeoutDisabled   = false
 	configPersistentSearchEnabled = false
+	configInstantSearchEnabled    = false
 )
 
 func main() {
@@ -113,6 +114,12 @@ func main() {
 		showIcons: showIcons,
 	}
 	m.list()
+
+	if configInstantSearchEnabled {
+		m.searchMode = true
+		m.searchId++
+		m.search = ""
+	}
 
 	p := tea.NewProgram(m, tea.WithOutput(os.Stderr))
 	if _, err := p.Run(); err != nil {

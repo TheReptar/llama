@@ -224,6 +224,7 @@ The schema is presented below:
   "editorDisabled": boolean,           // default: false
   "searchTimeoutDisabled": boolean,    // default: false
   "persistentSearchEnabled": boolean,  // default: false
+  "instantSearchEnabled": boolean,     // default: false
   "bindings": [
     {
       "action": string,
